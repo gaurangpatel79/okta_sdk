@@ -5,31 +5,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
-import com.api.sdk.okta.oktaSDK.configuration.OktaConfig;
 import com.api.sdk.okta.oktaSDK.dto.error.RetrofitError;
 import com.api.sdk.okta.oktaSDK.dto.userType.UserTypeRequest;
 import com.api.sdk.okta.oktaSDK.dto.userType.UserTypeResponse;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
+import com.api.sdk.okta.oktaSDK.util.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Service
 public class UserTypeServiceImpl implements UserTypeService {
 	final Okta oktaService;
-
-	@Autowired
+	String apiKey;
+	
 	public UserTypeServiceImpl() {
+		apiKey = System.getProperty("apiKey");
 		oktaService = ServiceFactory.createService(Okta.class);
 	}
-
-	@Autowired
-	private OktaConfig oktaConfig;
+	
 
 	public static String readString(InputStream inputStream) throws IOException {
 
@@ -45,7 +39,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse createUsertype(UserTypeRequest userTypeRequest) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserTypeResponse> call = oktaService.createUserType(authorization, userTypeRequest);
 			Response<UserTypeResponse> response = call.execute();
 
@@ -68,7 +62,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public List<UserTypeResponse> getAllUserType() {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<UserTypeResponse>> call = oktaService.getAllUserType(authorization);
 			Response<List<UserTypeResponse>> response = call.execute();
 
@@ -91,7 +85,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse getDefaultUserType() {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserTypeResponse> call = oktaService.getDefaultUserType(authorization);
 			Response<UserTypeResponse> response = call.execute();
 
@@ -114,7 +108,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse getUserTypeById(String typeId) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserTypeResponse> call = oktaService.getUserTypeById(authorization, typeId);
 			Response<UserTypeResponse> response = call.execute();
 
@@ -137,7 +131,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse updateUserTypeById(String typeId, UserTypeRequest userTypeRequest) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserTypeResponse> call = oktaService.updateUserTypeById(authorization, typeId, userTypeRequest);
 			Response<UserTypeResponse> response = call.execute();
 
@@ -161,7 +155,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public String deleteUserTypeById(String typeId) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.deleteUserTypeById(authorization, typeId);
 			Response<Void> response = call.execute();
 

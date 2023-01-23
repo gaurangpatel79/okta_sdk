@@ -180,8 +180,11 @@ public interface Okta {
 	@GET("/api/v1/groups/{groupId}/apps")
 	public Call<List<ApplicationResponse>> listAssignedApplicationToGroup(@Header("Authorization") String authorization,@Path("groupId") String groupId);
 
-	@GET("/api/v1/groups/rules")
-	public Call<List<ApplicationResponse>> addRuleToGroup(@Header("Authorization") String authorization,@Body RulesRequest rulesRequest);
+	@POST("/api/v1/groups/rules")
+	public Call<RulesRequest> addRuleToGroup(@Header("Authorization") String authorization,@Body RulesRequest rulesRequest);
+
+	@PUT("/api/v1/groups/rules/{ruleId}")
+	public Call<RulesRequest> updateRuleToGroup(@Header("Authorization") String authorization,@Path("ruleId") String ruleId,@Body RulesRequest rulesRequest);
 
 }
 
