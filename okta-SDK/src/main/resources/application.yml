@@ -1,0 +1,17 @@
+okta:
+   authService: "default" 
+   grantType: "authorization_code"
+   redirectUri: "http://localhost:8080/authorization-code/callback"
+   clientId: "0oaq6cdrbN0pFmOz4356"
+   secret: "oBkN-tFiFMFm9kYB5ZAsaUFTVx1K2_wm6lyyl2mx"
+   apiKey: "00iTaN6jBsvMVScQ16qwKphxIbZcmmessIS0NdNWye"
+
+server:
+  port: 8083
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:  
+          issuer-uri: https://dev-838474.okta.com/oauth2/default
