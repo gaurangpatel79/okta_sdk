@@ -1,37 +1,37 @@
 package com.api.sdk.okta.oktaSDK.service;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.api.sdk.okta.oktaSDK.configuration.OktaConfig;
 import com.api.sdk.okta.oktaSDK.dto.AccessToken;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Service
 public class OktaTokenServiceImpl implements OktaTokenService {
 
 	final Okta oktaService;
+	String authService;
+	String grantType;
+	String redirectUri;
+	String clientId;
+	String secret;
 
-	@Autowired
 	public OktaTokenServiceImpl() {
+		authService = System.getProperty("authService");
+		grantType = System.getProperty("grantType");
+		redirectUri = System.getProperty("redirectUri");
+		clientId = System.getProperty("clientId");
+		secret = System.getProperty("secret");
+
 		oktaService = ServiceFactory.createService(Okta.class);
 	}
-
-	@Autowired
-	private OktaConfig oktaConfig;
 
 	@Override
 	public AccessToken generateAccessToken(String code) throws CustomValidationException {
 		try {
-			Call<AccessToken> call = oktaService.generateAccessToken(oktaConfig.getAuthService(),
-					oktaConfig.getGrantType(), code, oktaConfig.getRedirectUri(), oktaConfig.getClientId(),
-					oktaConfig.getSecret());
+			Call<AccessToken> call = oktaService.generateAccessToken(authService, grantType, code, redirectUri,
+					clientId, secret);
 			Response<AccessToken> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -51,9 +51,8 @@ public class OktaTokenServiceImpl implements OktaTokenService {
 	@Override
 	public AccessToken generateAccessTokenFromRefreshToken(String refreshToken) throws CustomValidationException {
 		try {
-			Call<AccessToken> call = oktaService.generateAccessTokenFromRefreshToken(oktaConfig.getAuthService(),
-					"refresh_token", oktaConfig.getRedirectUri(), oktaConfig.getClientId(),
-					oktaConfig.getSecret(), refreshToken);
+			Call<AccessToken> call = oktaService.generateAccessTokenFromRefreshToken(authService, "refresh_token",
+					redirectUri, clientId, secret, refreshToken);
 			Response<AccessToken> response = call.execute();
 
 			if (!response.isSuccessful()) {

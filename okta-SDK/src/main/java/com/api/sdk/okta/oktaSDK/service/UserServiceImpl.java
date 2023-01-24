@@ -5,39 +5,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
-import com.api.sdk.okta.oktaSDK.configuration.OktaConfig;
 import com.api.sdk.okta.oktaSDK.dto.error.RetrofitError;
 import com.api.sdk.okta.oktaSDK.dto.user.ActivateResponse;
 import com.api.sdk.okta.oktaSDK.dto.user.ChangePasswordRequest;
 import com.api.sdk.okta.oktaSDK.dto.user.User;
 import com.api.sdk.okta.oktaSDK.dto.user.UserCredentials;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
+import com.api.sdk.okta.oktaSDK.util.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Service
 public class UserServiceImpl implements UserService {
 
 	final Okta oktaService;
-
-	@Autowired
+	String apiKey;
+	
 	public UserServiceImpl() {
+		apiKey = System.getProperty("apiKey");
 		oktaService = ServiceFactory.createService(Okta.class);
 	}
 
-	@Autowired
-	private OktaConfig oktaConfig;
-
-	@Override
+ 	@Override
 	public User createUser(User user) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<User> call = oktaService.createUser(authorization, user);
 			Response<User> response = call.execute();
 
@@ -58,7 +51,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public static String readString(InputStream inputStream) throws IOException {
-
 		ByteArrayOutputStream into = new ByteArrayOutputStream();
 		byte[] buf = new byte[4096];
 		for (int n; 0 < (n = inputStream.read(buf));) {
@@ -71,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserById(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<User> call = oktaService.getUserById(authorization, userId);
 			Response<User> response = call.execute();
 
@@ -94,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAssignedAppLinks(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<User>> call = oktaService.getAssignedAppLinks(authorization, userId);
 			Response<List<User>> response = call.execute();
 
@@ -117,7 +109,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUser(String query, int limit) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<User>> call = oktaService.findUser(authorization, query, limit);
 			Response<List<User>> response = call.execute();
 
@@ -140,7 +132,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> listUsers(int limit) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<User>> call = oktaService.listUser(authorization, limit);
 			Response<List<User>> response = call.execute();
 
@@ -163,7 +155,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> searchUser(String query) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<User>> call = oktaService.searchUser(authorization, query);
 			Response<List<User>> response = call.execute();
 
@@ -186,7 +178,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> filterUser(String query, int limit) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<List<User>> call = oktaService.filterUser(authorization, query, limit);
 			Response<List<User>> response = call.execute();
 
@@ -209,7 +201,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ActivateResponse activateUser(String userId, boolean isSendEmail) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<ActivateResponse> call = oktaService.activateUser(authorization, userId, isSendEmail);
 			Response<ActivateResponse> response = call.execute();
 
@@ -233,7 +225,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deactivateUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.deactivateUser(authorization, userId);
 			Response<Void> response = call.execute();
 
@@ -256,7 +248,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String unlockUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.unlockUser(authorization, userId);
 			Response<Void> response = call.execute();
 
@@ -279,7 +271,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User expirePasswordUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<User> call = oktaService.expirePassword(authorization, userId);
 			Response<User> response = call.execute();
 
@@ -302,7 +294,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Object resetPasswordUser(String userId, boolean isSendEmail) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Object> call = oktaService.resetPasswordUser(authorization, userId, isSendEmail);
 			Response<Object> response = call.execute();
 
@@ -325,7 +317,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Object setTemporaryPasswordForUser(String userId, boolean isTempPassword) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Object> call = oktaService.setTemporaryPassword(authorization, userId, isTempPassword);
 			Response<Object> response = call.execute();
 
@@ -350,7 +342,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String suspendUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.suspendUser(authorization, userId);
 			Response<Void> response = call.execute();
 
@@ -373,7 +365,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String unsuspendUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.unsuspendUser(authorization, userId);
 			Response<Void> response = call.execute();
 
@@ -396,7 +388,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUser(String userId) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Void> call = oktaService.unsuspendUser(authorization, userId);
 			Response<Void> response = call.execute();
 
@@ -417,10 +409,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(String userId,User user) throws CustomValidationException {
+	public User updateUser(String userId, User user) throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
-			Call<User> call = oktaService.updateUser(authorization,userId, user);
+			String authorization = "SSWS " + apiKey;
+			Call<User> call = oktaService.updateUser(authorization, userId, user);
 			Response<User> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -443,7 +435,7 @@ public class UserServiceImpl implements UserService {
 	public UserCredentials changePassword(String userId, ChangePasswordRequest changePasswordRequest)
 			throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserCredentials> call = oktaService.changePasswordOfUserById(authorization, userId,
 					changePasswordRequest);
 			Response<UserCredentials> response = call.execute();
@@ -468,7 +460,7 @@ public class UserServiceImpl implements UserService {
 	public UserCredentials changeRecoveryQuestionOfUserById(String userId, UserCredentials userCredentials)
 			throws CustomValidationException {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserCredentials> call = oktaService.changeRecoveryQuestionOfUserById(authorization, userId,
 					userCredentials);
 			Response<UserCredentials> response = call.execute();
@@ -493,7 +485,7 @@ public class UserServiceImpl implements UserService {
 	public UserCredentials forgotPasswordWithSecurityAnswerByUserId(String userId, boolean isSendEmail,
 			UserCredentials userCredentials) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<UserCredentials> call = oktaService.forgotPasswordWithSecurityAnswerByUserId(authorization, userId,
 					isSendEmail, userCredentials);
 			Response<UserCredentials> response = call.execute();
@@ -517,7 +509,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Object forgotPasswordWithOTPByUserId(String userId, boolean isSendEmail) {
 		try {
-			String authorization = "SSWS " + oktaConfig.getApiKey();
+			String authorization = "SSWS " + apiKey;
 			Call<Object> call = oktaService.forgotPasswordWithOTPByUserId(authorization, userId, isSendEmail);
 			Response<Object> response = call.execute();
 
