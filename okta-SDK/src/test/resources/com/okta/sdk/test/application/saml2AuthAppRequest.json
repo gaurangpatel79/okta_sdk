@@ -1,0 +1,43 @@
+{
+  "name": "cornerstone",
+  "label": "created via API",
+  "signOnMode": "SAML_2_0",
+  "settings": {
+    "app": {
+      "orgName": "dan",
+      "acsURL": null,
+      "url": "https://example.com/login.html"
+    },
+     "signOn": {
+     	    "destinationOverride": "http://www.okta.com",
+            "attributeStatements": [
+                    {
+                        "type": "EXPRESSION",
+                        "name": "nameFromAPI",
+                        "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+                        "values": [
+                            "Value1FromAPI",
+                            "Value2FromAPI"
+                        ]
+                    },
+                        {
+                        "type": "EXPRESSION",
+                        "name": "name2FromAPI",
+                        "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+                        "values": [
+                            "Value1FromAPI",
+                            "Value2FromAPI",
+                            "Value3FromAPI"
+                        ]
+                    },
+                    {
+                        "type": "GROUP",
+                        "name": "GroupNameFromAPI",
+                        "namespace": "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+                        "filterType": "STARTS_WITH",
+                        "filterValue": "ValueFromAPI"
+                    }
+                ]
+    }
+  }
+}

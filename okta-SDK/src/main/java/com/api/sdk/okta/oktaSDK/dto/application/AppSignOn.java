@@ -1,5 +1,7 @@
 package com.api.sdk.okta.oktaSDK.dto.application;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -25,5 +27,10 @@ public class AppSignOn {
 	private String spIssuer;
 	private boolean requestCompressed;
 	private boolean allowMultipleAcsEndpoints;
+	private String ssoAcsUrlOverride;
+	private String audienceOverride;
+	private String recipientOverride;
+	private String destinationOverride;
+	private List<AppAttributeStatements> attributeStatements;
 	
 }
