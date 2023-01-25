@@ -10,6 +10,8 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AppLinks {
 
+	private AppSubLinks help;
+	private AppSubLinks metadata;
 	private UploadLogo uploadLogo;
 	private List<AppSubLinks> appLinks;
 	private AppSubLinks groups;

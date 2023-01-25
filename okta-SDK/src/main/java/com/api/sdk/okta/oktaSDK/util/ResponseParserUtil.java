@@ -11,6 +11,7 @@ public class ResponseParserUtil {
 	
 	public static void parseErrorResponse(Response<?> response) throws IOException {
 		String errorMessage = response.errorBody().string();
+		System.out.println(errorMessage);
 		RetrofitError retrofitError = ObjectMapperHelper.readValueFromJSON(errorMessage, RetrofitError.class);
 		if (!ObjectUtils.isEmpty(retrofitError.getErrorCauses())
 				&& !ObjectUtils.isEmpty(retrofitError.getErrorCauses().get(0)))
