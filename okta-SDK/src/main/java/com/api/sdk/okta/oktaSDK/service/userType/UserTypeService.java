@@ -1,4 +1,4 @@
-package com.api.sdk.okta.oktaSDK.service;
+package com.api.sdk.okta.oktaSDK.service.userType;
 
 import java.util.List;
 
