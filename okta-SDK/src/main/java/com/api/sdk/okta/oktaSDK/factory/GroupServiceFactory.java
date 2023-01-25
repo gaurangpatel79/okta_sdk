@@ -1,7 +1,7 @@
 package com.api.sdk.okta.oktaSDK.factory;
 
-import com.api.sdk.okta.oktaSDK.service.GroupService;
-import com.api.sdk.okta.oktaSDK.service.GroupServiceImpl;
+import com.api.sdk.okta.oktaSDK.service.group.GroupService;
+import com.api.sdk.okta.oktaSDK.service.group.GroupServiceImpl;
 
 public class GroupServiceFactory {
 

@@ -1,7 +1,7 @@
 package com.api.sdk.okta.oktaSDK.factory;
 
-import com.api.sdk.okta.oktaSDK.service.UserService;
-import com.api.sdk.okta.oktaSDK.service.UserServiceImpl;
+import com.api.sdk.okta.oktaSDK.service.user.UserService;
+import com.api.sdk.okta.oktaSDK.service.user.UserServiceImpl;
 
 public class UserServiceFactory {
 	
