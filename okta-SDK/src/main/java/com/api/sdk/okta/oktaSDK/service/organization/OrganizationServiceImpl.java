@@ -22,10 +22,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	final OrganizationOkta orgOktaService;
 
-	String apiKey;
 
 	public OrganizationServiceImpl() {
-		apiKey = System.getProperty("apiKey");
 		orgOktaService = ServiceFactory.createService(OrganizationOkta.class);
 	}
 
@@ -33,8 +31,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	public OrganizationBody getOrgSetting() {
 
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OrganizationBody> call = orgOktaService.getOrganizationSetting(authorization);
+			
+			Call<OrganizationBody> call = orgOktaService.getOrganizationSetting();
 			Response<OrganizationBody> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -52,8 +50,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OrganizationBody updateOrgSetting(OrganizationBody organizationBody) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OrganizationBody> call = orgOktaService.updateOrganizationSetting(authorization, organizationBody);
+			
+			Call<OrganizationBody> call = orgOktaService.updateOrganizationSetting(organizationBody);
 			Response<OrganizationBody> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -70,8 +68,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public ContactTypes getContactTypes() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<ContactTypes> call = orgOktaService.getContactsType(authorization);
+			
+			Call<ContactTypes> call = orgOktaService.getContactsType();
 			Response<ContactTypes> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -88,8 +86,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public UserContact getUsersOfContactTypes(String contactType) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserContact> call = orgOktaService.getUserOfContactsType(authorization, contactType);
+			
+			Call<UserContact> call = orgOktaService.getUserOfContactsType(contactType);
 			Response<UserContact> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -106,8 +104,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public UserContact updateUsersOfContactTypes(String contactType, UserContact userContact) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserContact> call = orgOktaService.updateUserOfContactsType(authorization, contactType, userContact);
+			
+			Call<UserContact> call = orgOktaService.updateUserOfContactsType(contactType, userContact);
 			Response<UserContact> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -124,7 +122,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public String uploadLogoForOrganization(String logoPath) {
 		try {
-			String authorization = "SSWS " + apiKey;
+			
 			File file = new File(logoPath);
 //			InputStream in = new FileInputStream(file);
 //			byte[] buf;
@@ -138,7 +136,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 			
 			MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
 
-			Call<Void> call = orgOktaService.uploadLogoForOrganization(authorization, body);
+			Call<Void> call = orgOktaService.uploadLogoForOrganization(body);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -155,8 +153,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaSupportSetting getOktaSupportSetting() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaSupportSetting> call = orgOktaService.getOktaSupportSetting(authorization);
+			
+			Call<OktaSupportSetting> call = orgOktaService.getOktaSupportSetting();
 			Response<OktaSupportSetting> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -174,8 +172,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaSupportSetting grantOktaSupportSetting() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaSupportSetting> call = orgOktaService.grantOktaSupportSetting(authorization);
+			
+			Call<OktaSupportSetting> call = orgOktaService.grantOktaSupportSetting();
 			Response<OktaSupportSetting> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -193,8 +191,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaSupportSetting extendOktaSupportSetting() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaSupportSetting> call = orgOktaService.extendOktaSupportSetting(authorization);
+			
+			Call<OktaSupportSetting> call = orgOktaService.extendOktaSupportSetting();
 			Response<OktaSupportSetting> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -212,8 +210,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaSupportSetting revokeOktaSupportSetting() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaSupportSetting> call = orgOktaService.revokeOktaSupportSetting(authorization);
+			
+			Call<OktaSupportSetting> call = orgOktaService.revokeOktaSupportSetting();
 			Response<OktaSupportSetting> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -231,8 +229,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaCommunication getOktaCommunication() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaCommunication> call = orgOktaService.getOktaCommunication(authorization);
+			
+			Call<OktaCommunication> call = orgOktaService.getOktaCommunication();
 			Response<OktaCommunication> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -250,8 +248,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaCommunication setOptOutofOktaCommunications() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaCommunication> call = orgOktaService.setOptOutofOktaCommunications(authorization);
+			
+			Call<OktaCommunication> call = orgOktaService.setOptOutofOktaCommunications();
 			Response<OktaCommunication> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -269,8 +267,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OktaCommunication setOptInofOktaCommunications() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<OktaCommunication> call = orgOktaService.setOptInofOktaCommunications(authorization);
+			
+			Call<OktaCommunication> call = orgOktaService.setOptInofOktaCommunications();
 			Response<OktaCommunication> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -284,4 +282,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 			throw new CustomValidationException(e.getMessage());
 		}
 	}
+	
+	
 }

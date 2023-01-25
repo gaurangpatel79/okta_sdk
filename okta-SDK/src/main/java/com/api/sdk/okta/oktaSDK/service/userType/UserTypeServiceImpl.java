@@ -14,18 +14,16 @@ import retrofit2.Response;
 
 public class UserTypeServiceImpl implements UserTypeService {
 	final UserTypeOkta oktaService;
-	String apiKey;
-	
+
 	public UserTypeServiceImpl() {
-		apiKey = System.getProperty("apiKey");
 		oktaService = ServiceFactory.createService(UserTypeOkta.class);
 	}
-	
+
 	@Override
 	public UserTypeResponse createUsertype(UserTypeRequest userTypeRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserTypeResponse> call = oktaService.createUserType(authorization, userTypeRequest);
+
+			Call<UserTypeResponse> call = oktaService.createUserType(userTypeRequest);
 			Response<UserTypeResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -42,8 +40,8 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public List<UserTypeResponse> getAllUserType() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<UserTypeResponse>> call = oktaService.getAllUserType(authorization);
+
+			Call<List<UserTypeResponse>> call = oktaService.getAllUserType();
 			Response<List<UserTypeResponse>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -60,8 +58,8 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse getDefaultUserType() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserTypeResponse> call = oktaService.getDefaultUserType(authorization);
+
+			Call<UserTypeResponse> call = oktaService.getDefaultUserType();
 			Response<UserTypeResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -78,8 +76,8 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse getUserTypeById(String typeId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserTypeResponse> call = oktaService.getUserTypeById(authorization, typeId);
+
+			Call<UserTypeResponse> call = oktaService.getUserTypeById(typeId);
 			Response<UserTypeResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -96,8 +94,8 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public UserTypeResponse updateUserTypeById(String typeId, UserTypeRequest userTypeRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<UserTypeResponse> call = oktaService.updateUserTypeById(authorization, typeId, userTypeRequest);
+
+			Call<UserTypeResponse> call = oktaService.updateUserTypeById(typeId, userTypeRequest);
 			Response<UserTypeResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -114,8 +112,8 @@ public class UserTypeServiceImpl implements UserTypeService {
 	@Override
 	public String deleteUserTypeById(String typeId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.deleteUserTypeById(authorization, typeId);
+
+			Call<Void> call = oktaService.deleteUserTypeById(typeId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {

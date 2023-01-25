@@ -18,18 +18,16 @@ import retrofit2.Response;
 public class GroupServiceImpl implements GroupService {
 
 	final GroupOkta oktaService;
-	String apiKey;
 
 	public GroupServiceImpl() {
-		apiKey = System.getProperty("apiKey");
 		oktaService = ServiceFactory.createService(GroupOkta.class);
 	}
 
 	@Override
 	public GroupResponse createGroup(CreateGroupRequest createGroupRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<GroupResponse> call = oktaService.createGroup(authorization, createGroupRequest);
+
+			Call<GroupResponse> call = oktaService.createGroup(createGroupRequest);
 			Response<GroupResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -46,8 +44,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public GroupResponse getGroupById(String groupId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<GroupResponse> call = oktaService.getGroupById(authorization, groupId);
+
+			Call<GroupResponse> call = oktaService.getGroupById(groupId);
 			Response<GroupResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -64,8 +62,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<GroupResponse> getAllGroups() {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<GroupResponse>> call = oktaService.getAllGroups(authorization);
+
+			Call<List<GroupResponse>> call = oktaService.getAllGroups();
 			Response<List<GroupResponse>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -82,8 +80,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<GroupResponse> searchGroups(String query) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<GroupResponse>> call = oktaService.searchGroups(authorization, query);
+
+			Call<List<GroupResponse>> call = oktaService.searchGroups(query);
 			Response<List<GroupResponse>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -100,8 +98,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<GroupResponse> filterGroups(String filter) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<GroupResponse>> call = oktaService.filterGroups(authorization, filter);
+
+			Call<List<GroupResponse>> call = oktaService.filterGroups(filter);
 			Response<List<GroupResponse>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -118,8 +116,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public GroupResponse updateGroup(String groupId, CreateGroupRequest createGroupRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<GroupResponse> call = oktaService.updateGroupById(authorization, groupId, createGroupRequest);
+
+			Call<GroupResponse> call = oktaService.updateGroupById(groupId, createGroupRequest);
 			Response<GroupResponse> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -136,8 +134,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String deleteGroupById(String groupId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.deleteGroupById(authorization, groupId);
+
+			Call<Void> call = oktaService.deleteGroupById(groupId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -154,8 +152,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<User> getAllUserFromGroupById(String groupId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<User>> call = oktaService.listGroupMembers(authorization, groupId);
+
+			Call<List<User>> call = oktaService.listGroupMembers(groupId);
 			Response<List<User>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -172,8 +170,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String assignUserToGroup(String groupId, String userId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.addUserToGroupById(authorization, groupId, userId);
+
+			Call<Void> call = oktaService.addUserToGroupById(groupId, userId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -190,8 +188,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String removeUserToGroup(String groupId, String userId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.removeUserToGroupById(authorization, groupId, userId);
+
+			Call<Void> call = oktaService.removeUserToGroupById(groupId, userId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -208,8 +206,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<ApplicationResponse> listAssignedApplicationToGroup(String groupId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<ApplicationResponse>> call = oktaService.listAssignedApplicationToGroup(authorization, groupId);
+
+			Call<List<ApplicationResponse>> call = oktaService.listAssignedApplicationToGroup(groupId);
 			Response<List<ApplicationResponse>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -226,8 +224,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public RulesRequest addRuleWithGroup(RulesRequest rulesRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<RulesRequest> call = oktaService.addRuleToGroup(authorization, rulesRequest);
+
+			Call<RulesRequest> call = oktaService.addRuleToGroup(rulesRequest);
 			Response<RulesRequest> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -244,8 +242,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public RulesRequest updateRuleWithGroup(String ruleId, RulesRequest rulesRequest) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<RulesRequest> call = oktaService.updateRuleToGroup(authorization, ruleId, rulesRequest);
+
+			Call<RulesRequest> call = oktaService.updateRuleToGroup(ruleId, rulesRequest);
 			Response<RulesRequest> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -262,8 +260,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public RulesRequest getRuleById(String ruleId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<RulesRequest> call = oktaService.getRulebyId(authorization, ruleId);
+
+			Call<RulesRequest> call = oktaService.getRulebyId(ruleId);
 			Response<RulesRequest> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -280,8 +278,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<RulesRequest> getAllRule(int limit) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<RulesRequest>> call = oktaService.getAllRule(authorization, limit, "groupIdToGroupNameMap");
+
+			Call<List<RulesRequest>> call = oktaService.getAllRule(limit, "groupIdToGroupNameMap");
 			Response<List<RulesRequest>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -298,8 +296,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<RulesRequest> searchRule(String query) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<RulesRequest>> call = oktaService.searchRule(authorization, query);
+
+			Call<List<RulesRequest>> call = oktaService.searchRule(query);
 			Response<List<RulesRequest>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -316,8 +314,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public List<RulesRequest> getRuleWithAfter(String ruleId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<List<RulesRequest>> call = oktaService.getRuleWithAfter(authorization, ruleId);
+
+			Call<List<RulesRequest>> call = oktaService.getRuleWithAfter(ruleId);
 			Response<List<RulesRequest>> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -334,8 +332,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String deleteRulebyId(String ruleId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.deleteRulebyId(authorization, ruleId);
+
+			Call<Void> call = oktaService.deleteRulebyId(ruleId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -352,8 +350,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String deleteRuleAndRemoveUsersbyId(String ruleId, boolean isRemoveUsers) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.deleteRuleAndRemoveUsersbyId(authorization, ruleId, isRemoveUsers);
+
+			Call<Void> call = oktaService.deleteRuleAndRemoveUsersbyId(ruleId, isRemoveUsers);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -370,8 +368,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String deactivateRulebyId(String ruleId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.deactivateRulebyId(authorization, ruleId);
+
+			Call<Void> call = oktaService.deactivateRulebyId(ruleId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
@@ -388,8 +386,8 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public String activateRulebyId(String ruleId) {
 		try {
-			String authorization = "SSWS " + apiKey;
-			Call<Void> call = oktaService.activateRulebyId(authorization, ruleId);
+
+			Call<Void> call = oktaService.activateRulebyId(ruleId);
 			Response<Void> response = call.execute();
 
 			if (!response.isSuccessful()) {
