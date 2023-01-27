@@ -4,8 +4,10 @@ import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.OAuth2ClientAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 
 public interface ApplicationService {
@@ -21,5 +23,9 @@ public interface ApplicationService {
 	public ApplicationResponse addPluginSwaApp(PluginSwaAppRequest request);
 	
 	public ApplicationResponse addWsFedApp(WsFedAppRequest request);
+	
+	public ApplicationResponse addSwaApp(SwaAppRequest request);
+	
+	public ApplicationResponse addOAuth2ClientApp(OAuth2ClientAppRequest request);
 	
 }

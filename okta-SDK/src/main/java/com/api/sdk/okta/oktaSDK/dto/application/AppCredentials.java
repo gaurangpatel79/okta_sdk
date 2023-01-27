@@ -10,8 +10,11 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AppCredentials {
 	
+	@JsonInclude(Include.NON_NULL)
 	private String scheme;
+	@JsonInclude(Include.NON_NULL)
 	private UserNameTemplate userNameTemplate;
+	@JsonInclude(Include.NON_NULL)
 	private AppSigning signing;
 	@JsonInclude(Include.NON_NULL)
 	private AppOauthClient oauthClient;

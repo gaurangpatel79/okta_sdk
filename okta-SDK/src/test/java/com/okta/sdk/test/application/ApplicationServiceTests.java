@@ -12,8 +12,10 @@ import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.OAuth2ClientAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
@@ -67,7 +69,7 @@ public class ApplicationServiceTests {
 	}
 	
 	@Test
-	public void testPluginSwaApp() {
+	public void testAddPluginSwaApp() {
 		PluginSwaAppRequest request = createRequest("pluginSwaAppRequest.json", PluginSwaAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addPluginSwaApp(request);
 		assertNotNull(appResponse);
@@ -76,11 +78,31 @@ public class ApplicationServiceTests {
 	}
 	
 	@Test
-	public void testWsFedApp() {
+	public void testAddWsFedApp() {
 		WsFedAppRequest request = createRequest("wsFedAppRequest.json", WsFedAppRequest.class);
 		String requestStr = ObjectMapperHelper.toJSON(request);
 		System.out.println("Request String: " + requestStr);
 		ApplicationResponse appResponse = applicationService.addWsFedApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testAddSwaApp() {
+		SwaAppRequest request = createRequest("swaAppRequest.json", SwaAppRequest.class);
+		ApplicationResponse appResponse = applicationService.addSwaApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testAddOAuth2ClientApp() {
+		OAuth2ClientAppRequest request = createRequest("oAuth2ClientAppRequest.json", OAuth2ClientAppRequest.class);
+		String requestStr = ObjectMapperHelper.toJSON(request);
+		System.out.println("Request String: " + requestStr);
+		ApplicationResponse appResponse = applicationService.addOAuth2ClientApp(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
 		System.out.println("App Response: " + appResponse);
