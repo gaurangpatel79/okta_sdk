@@ -1,0 +1,42 @@
+{
+  "label": "Custom SWA App",
+  "accessibility": {
+    "selfService": false,
+    "errorRedirectUrl": null,
+    "loginRedirectUrl": null
+  },
+  "visibility": {
+    "autoSubmitToolbar": false,
+    "hide": {
+      "iOS": false,
+      "web": false
+    }
+  },
+  "features": [],
+  "signOnMode": "AUTO_LOGIN",
+  "credentials": {
+    "scheme": "EXTERNAL_PASSWORD_SYNC",
+    "userNameTemplate": {
+      "template": "${source.email}",
+      "type": "BUILT_IN"
+    },
+    "revealPassword": false,
+    "signing": {}
+  },
+  "settings": {
+    "app": {},
+    "notifications": {
+      "vpn": {
+        "network": {
+          "connection": "DISABLED"
+        },
+        "message": null,
+        "helpUrl": null
+      }
+    },
+    "signOn": {
+      "redirectUrl": "http://secondary.com",
+      "loginUrl": "http://primary.com"
+    }
+  }
+}

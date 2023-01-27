@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AppSettings {
 	
-	private Object app;
+	private App app;
 	private AppNotifications notifications;
 	private AppNotes notes;
 	private AppSignOn signOn;

@@ -1,0 +1,11 @@
+{
+  "name": "template_basic_auth",
+  "label": "Sample Basic Auth App",
+  "signOnMode": "BASIC_AUTH",
+  "settings": {
+    "app": {
+      "url": "https://example.com/login.html",
+      "authURL": "https://example.com/auth.html"
+    }
+  }
+}

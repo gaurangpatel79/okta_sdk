@@ -9,7 +9,5 @@ import lombok.Data;
 public class AppNotifications {
 	
 	private AppVpn vpn;
-	private String message;
-	private String helpUrl;
 
 }
