@@ -1,6 +1,7 @@
 package com.api.sdk.okta.oktaSDK.service.organization;
 
 import com.api.sdk.okta.oktaSDK.dto.organization.ContactTypes;
+import com.api.sdk.okta.oktaSDK.dto.organization.EmailAddresses;
 import com.api.sdk.okta.oktaSDK.dto.organization.OktaCommunication;
 import com.api.sdk.okta.oktaSDK.dto.organization.OktaSupportSetting;
 import com.api.sdk.okta.oktaSDK.dto.organization.OrganizationBody;
@@ -34,6 +35,8 @@ public interface OrganizationService {
 	public OktaCommunication setOptOutofOktaCommunications();
 
 	public OktaCommunication setOptInofOktaCommunications();
+	
+	public String createEmailAddressBounceRemovalList(EmailAddresses emailAddresses);
 
 	
 }
