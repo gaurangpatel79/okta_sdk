@@ -4,7 +4,9 @@ import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,4 +25,10 @@ public interface ApplicationOktaService {
 	
 	@POST("/api/v1/apps")
 	public Call<ApplicationResponse> addBasicAuthApp(@Body BasicAuthAppRequest appRequest);
+	
+	@POST("/api/v1/apps")
+	public Call<ApplicationResponse> addPluginSwaApp(@Body PluginSwaAppRequest appRequest);
+	
+	@POST("/api/v1/apps")
+	public Call<ApplicationResponse> addWsFedApp(@Body WsFedAppRequest appRequest);
 }

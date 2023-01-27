@@ -2,13 +2,16 @@ package com.api.sdk.okta.oktaSDK.dto.application;
 
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class CustomSaml2AppRequest {
-	public String label;
-    public Accessibility accessibility;
-    public Visibility visibility;
-    public List<Object> features;
-    public String signOnMode;
-    public AppCredentials credentials;
-    public AppSettings settings;
+	private String label;
+    private Accessibility accessibility;
+    private Visibility visibility;
+    private List<Object> features;
+    private String signOnMode;
+    private AppCredentials credentials;
+    private AppSettings settings;
 
 }

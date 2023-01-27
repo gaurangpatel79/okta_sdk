@@ -6,7 +6,9 @@ import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
@@ -40,7 +42,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public ApplicationResponse addCustomSaml2App(CustomSaml2AppRequest request) {
-		// TODO Auto-generated method stub
 		try {
 			Call<ApplicationResponse> call = oktaService.addCustomSaml2App(request);
 			Response<ApplicationResponse> response = call.execute();
@@ -77,6 +78,38 @@ public class ApplicationServiceImpl implements ApplicationService {
 	public ApplicationResponse addBasicAuthApp(BasicAuthAppRequest request) {
 		try {
 			Call<ApplicationResponse> call = oktaService.addBasicAuthApp(request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse addPluginSwaApp(PluginSwaAppRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.addPluginSwaApp(request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse addWsFedApp(WsFedAppRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.addWsFedApp(request);
 			Response<ApplicationResponse> response = call.execute();
 			if (!response.isSuccessful()) {
 				ResponseParserUtil.parseErrorResponse(response);

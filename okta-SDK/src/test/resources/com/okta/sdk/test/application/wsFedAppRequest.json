@@ -1,0 +1,21 @@
+{
+  "name": "template_wsfed",
+  "label": "Sample WS-Fed App",
+  "signOnMode": "WS_FEDERATION",
+  "settings": {
+    "app": {
+      "audienceRestriction": "urn:example:app",
+      "groupName": null,
+      "groupValueFormat": "windowsDomainQualifiedName",
+      "realm": "urn:example:app",
+      "wReplyURL": "https://example.com/",
+      "attributeStatements": null,
+      "nameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+      "authnContextClassRef": "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
+      "siteURL": "https://example.com",
+      "wReplyOverride": false,
+      "groupFilter": null,
+      "usernameAttribute": "username"
+    }
+  }
+}

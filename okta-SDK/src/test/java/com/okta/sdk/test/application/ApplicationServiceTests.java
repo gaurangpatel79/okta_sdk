@@ -12,7 +12,9 @@ import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
 import com.api.sdk.okta.oktaSDK.util.ObjectMapperHelper;
@@ -63,6 +65,28 @@ public class ApplicationServiceTests {
 		assertNotNull(appResponse.getId());
 		System.out.println("App Response: " + appResponse);
 	}
+	
+	@Test
+	public void testPluginSwaApp() {
+		PluginSwaAppRequest request = createRequest("pluginSwaAppRequest.json", PluginSwaAppRequest.class);
+		ApplicationResponse appResponse = applicationService.addPluginSwaApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testWsFedApp() {
+		WsFedAppRequest request = createRequest("wsFedAppRequest.json", WsFedAppRequest.class);
+		String requestStr = ObjectMapperHelper.toJSON(request);
+		System.out.println("Request String: " + requestStr);
+		ApplicationResponse appResponse = applicationService.addWsFedApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {
 		try {
