@@ -6,12 +6,9 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AppSettings {
+public class App {
 	
-	private App app;
-	private AppNotifications notifications;
-	private AppNotes notes;
-	private AppSignOn signOn;
-	private AppOauthClient oauthClient;
-
+	private String loginUrlRegex;
+	private String authURL;
+	private String url;
 }
