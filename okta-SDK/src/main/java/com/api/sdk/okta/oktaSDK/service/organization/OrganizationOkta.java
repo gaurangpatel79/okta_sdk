@@ -28,12 +28,13 @@ public interface OrganizationOkta {
 
 	@GET("/api/v1/org/contacts")
 	public Call<ContactTypes> getContactsType();
-	
+
 	@GET("/api/v1/org/contacts/{contactType}")
 	public Call<UserContact> getUserOfContactsType(@Path("contactType") String contactType);
-	
+
 	@PUT("/api/v1/org/contacts/{contactType}")
-	public Call<UserContact> updateUserOfContactsType(@Path("contactType") String contactType,@Body UserContact userContact);
+	public Call<UserContact> updateUserOfContactsType(@Path("contactType") String contactType,
+			@Body UserContact userContact);
 
 	@Multipart
 	@POST("/api/v1/org/logo")
@@ -50,7 +51,7 @@ public interface OrganizationOkta {
 
 	@POST("/api/v1/org/privacy/oktaSupport/revoke")
 	public Call<OktaSupportSetting> revokeOktaSupportSetting();
-	
+
 	@GET("/api/v1/org/privacy/oktaCommunication")
 	public Call<OktaCommunication> getOktaCommunication();
 
@@ -63,6 +64,4 @@ public interface OrganizationOkta {
 	@POST("/api/v1/org/email/bounces/remove-list")
 	public Call<OktaCommunication> createEmailAddressBounceRemovalList(@Body EmailAddresses emailAddresses);
 
-	
 }
-
