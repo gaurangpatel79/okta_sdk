@@ -43,4 +43,9 @@ public class App {
 	private String optionalField2Value;
 	private String optionalField3;
 	private String optionalField3Value;
+	@JsonInclude(Include.NON_NULL)
+	private Boolean requestIntegration;
+	private String acsUrl;
+	private String audRestriction;
+	private String baseUrl;
 }

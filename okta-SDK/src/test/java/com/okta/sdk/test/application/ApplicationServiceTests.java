@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.BookmarkAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.OAuth2ClientAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.OktaOrg2OrgAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
@@ -108,6 +110,27 @@ public class ApplicationServiceTests {
 		System.out.println("App Response: " + appResponse);
 	}
 	
+	@Test
+	public void testAddBookmarkApp() {
+		BookmarkAppRequest request = createRequest("bookmarkAppRequest.json", BookmarkAppRequest.class);
+		String requestStr = ObjectMapperHelper.toJSON(request);
+		System.out.println("Request String: " + requestStr);
+		ApplicationResponse appResponse = applicationService.addBookmarkApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testAddOktaOrg2OrgApp() {
+		OktaOrg2OrgAppRequest request = createRequest("oktaOrg2OrgAppRequest.json", OktaOrg2OrgAppRequest.class);
+		String requestStr = ObjectMapperHelper.toJSON(request);
+		System.out.println("Request String: " + requestStr);
+		ApplicationResponse appResponse = applicationService.addOktaOrg2OrgApp(request);
+		assertNotNull(appResponse);
+		assertNotNull(appResponse.getId());
+		System.out.println("App Response: " + appResponse);
+	}
 	
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {
