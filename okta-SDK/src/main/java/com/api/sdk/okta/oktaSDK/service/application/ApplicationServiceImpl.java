@@ -1,6 +1,7 @@
 package com.api.sdk.okta.oktaSDK.service.application;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
@@ -13,6 +14,9 @@ import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
@@ -184,6 +188,135 @@ public class ApplicationServiceImpl implements ApplicationService {
 				return null;
 			} else {
 				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CertificateResponse generateCertificate(String appId, int validityYears) {
+		try {
+			Call<CertificateResponse> call = oktaService.generateCertificate(appId, validityYears);
+			Response<CertificateResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CertificateResponse shareCloneCertificate(String appId, String keyId, String targetAid) {
+		try {
+			Call<CertificateResponse> call = oktaService.shareCloneCertificate(appId, keyId, targetAid);
+			Response<CertificateResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CertificateResponse getCertificate(String appId, String keyId) {
+		
+		try {
+			Call<CertificateResponse> call = oktaService.getCertificate(appId, keyId);
+			Response<CertificateResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<CertificateResponse> listCertificates(String appId) {
+		try {
+			Call<List<CertificateResponse>> call = oktaService.listCertificates(appId);
+			Response<List<CertificateResponse>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CsrResponse generateCsrInJson(String appId, CsrRequest request) {
+		try {
+			Call<CsrResponse> call = oktaService.generateCsrInJson(appId, request);
+			Response<CsrResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<CsrResponse> listCsrs(String appId) {
+		try {
+			Call<List<CsrResponse>> call = oktaService.listCsrs(appId);
+			Response<List<CsrResponse>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CsrResponse getCsr(String appId, String csrId) {
+		try {
+			Call<CsrResponse> call = oktaService.getCsr(appId, csrId);
+			Response<CsrResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String revokeCsr(String appId, String csrId) {
+		try {
+			Call<Void> call = oktaService.revokeCsr(appId, csrId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Csr successfully revoked";
 			}
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());
