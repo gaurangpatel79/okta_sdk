@@ -17,6 +17,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
@@ -317,6 +318,22 @@ public class ApplicationServiceImpl implements ApplicationService {
 				return null;
 			} else {
 				return "Csr successfully revoked";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public SamlMetadata previewSamlMetadata(String appId, String keyId) {
+		try {
+			Call<SamlMetadata> call = oktaService.previewSamlMetadata(appId, keyId);
+			Response<SamlMetadata> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
 			}
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());

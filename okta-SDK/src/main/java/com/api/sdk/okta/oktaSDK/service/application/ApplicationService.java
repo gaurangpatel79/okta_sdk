@@ -16,6 +16,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 
 public interface ApplicationService {
 
@@ -40,6 +41,8 @@ public interface ApplicationService {
 	public ApplicationResponse addOktaOrg2OrgApp(OktaOrg2OrgAppRequest request);
 
 	public CertificateResponse generateCertificate(String appId, int validityYears);
+	
+	public SamlMetadata previewSamlMetadata(String appId, String keyId);
 
 	public CertificateResponse shareCloneCertificate(String appId, String keyId, String targetAid);
 

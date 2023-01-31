@@ -9,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class ServiceFactory {
 
@@ -18,7 +19,8 @@ public class ServiceFactory {
 	private static final String API_KEY = System.getProperty("apiKey");
 
 	private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL)
-			.addConverterFactory(JacksonConverterFactory.create());
+			.addConverterFactory(JacksonConverterFactory.create())
+			.addConverterFactory(SimpleXmlConverterFactory.create());
 
 	private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS);
 
@@ -36,7 +38,7 @@ public class ServiceFactory {
 			}
 		});
 	}
-	
+
 	private static Retrofit retrofit = builder.client(httpClient.build()).build();
 
 	/**

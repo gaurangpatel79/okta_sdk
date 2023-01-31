@@ -24,6 +24,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
 import com.api.sdk.okta.oktaSDK.util.ObjectMapperHelper;
@@ -201,6 +202,13 @@ public class ApplicationServiceTests {
 		String csrResponse = applicationService.revokeCsr("0oap7h19agEJqnZFB357", "b4et_JSrWupfQaEH53kqJX-hkylrM_P2NhfQXt2ZuJU");
 		assertNotNull(csrResponse);
 		System.out.println("Csr Response: " + csrResponse);
+	}
+	
+	@Test
+	public void testPreviewSamlMetadata() {
+		SamlMetadata samlMetadata = applicationService.previewSamlMetadata("0oap7h19agEJqnZFB357", "t7Sp8j0ITYT_so_3TNkAMM9t-NSB1h-eQoC8qfuY_7k");
+		assertNotNull(samlMetadata);
+		System.out.println("Saml Metadata: " + samlMetadata);
 	}
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {
