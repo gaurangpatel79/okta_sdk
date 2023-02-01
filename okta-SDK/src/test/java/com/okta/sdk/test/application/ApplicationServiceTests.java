@@ -27,6 +27,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
 import com.api.sdk.okta.oktaSDK.util.ObjectMapperHelper;
@@ -263,39 +265,75 @@ public class ApplicationServiceTests {
 		assertNotNull(appResponse);
 		System.out.println("App Response: " + appResponse);
 	}
-	
+
 	@Test
 	public void testUpdatePluginSWAToUserEditUsernameAndPassword() {
 		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToUserEditUserNameAndPassword.json",
 				UpdatePluginAppCredentialsRequest.class);
-		ApplicationResponse appResponse = applicationService.updatePluginSWAToUserEditUsernameAndPassword("0oapa27vaekofYvUq357",
-				request);
+		ApplicationResponse appResponse = applicationService
+				.updatePluginSWAToUserEditUsernameAndPassword("0oapa27vaekofYvUq357", request);
 		assertNotNull(appResponse);
 		System.out.println("App Response: " + appResponse);
 	}
-	
+
 	@Test
 	public void testUpdatePluginSWAToAdminSetsUsernameAndPassword() {
 		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToAdminSetsUserNameAndPassword.json",
 				UpdatePluginAppCredentialsRequest.class);
-		ApplicationResponse appResponse = applicationService.updatePluginSWAToAdminSetsUsernameAndPassword("0oapa27vaekofYvUq357",
-				request);
+		ApplicationResponse appResponse = applicationService
+				.updatePluginSWAToAdminSetsUsernameAndPassword("0oapa27vaekofYvUq357", request);
 		assertNotNull(appResponse);
 		System.out.println("App Response: " + appResponse);
 	}
-	
+
 	@Test
 	public void testDeactivateApp() {
 		String appResponse = applicationService.deactivateApp("0oap7h19agEJqnZFB357");
 		assertNotNull(appResponse);
 		System.out.println("App Response: " + appResponse);
 	}
-	
+
 	@Test
 	public void testActivateApp() {
 		String appResponse = applicationService.activateApp("0oap7h19agEJqnZFB357");
 		assertNotNull(appResponse);
 		System.out.println("App Response: " + appResponse);
+	}
+
+	@Test
+	public void testListScopeGrants() {
+		List<ScopeConsentGrant> scopeGrants = applicationService.listScopeConsentGrants("0oapa459zc77pitVr357");
+		assertNotNull(scopeGrants);
+		assertTrue(scopeGrants.size() > 0);
+		System.out.println("Scope Grants Response: " + scopeGrants);
+	}
+
+	@Test
+	public void testGetScopeGrant() {
+		ScopeConsentGrant scopeGrant = applicationService.getScopeConsentGrant("0oapa459zc77pitVr357",
+				"oag2oftwxsApkMoJV357");
+		assertNotNull(scopeGrant);
+		assertNotNull(scopeGrant.getId());
+		System.out.println("Scope Grants Response: " + scopeGrant);
+	}
+
+	@Test
+	public void testAddScopeGrant() {
+		ScopeConsentGrantRequest request = new ScopeConsentGrantRequest();
+		request.setIssuer("https://dev-838474.okta.com");
+		request.setScopeId("okta.users.manage");
+		ScopeConsentGrant scopeGrant = applicationService.addScopeConsentGrant("0oapa459zc77pitVr357", request);
+		assertNotNull(scopeGrant);
+		assertNotNull(scopeGrant.getId());
+		System.out.println("Scope Grants Response: " + scopeGrant);
+	}
+	
+	@Test
+	public void testRevokeScopeGrant() {
+		String scopeGrant = applicationService.revokeScopeConsentGrant("0oapa459zc77pitVr357",
+				"oag2ofzgnwwitiPXN357");
+		assertNotNull(scopeGrant);
+		System.out.println("Scope Grants Response: " + scopeGrant);
 	}
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {

@@ -19,6 +19,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
 import com.api.sdk.okta.oktaSDK.service.Xml;
 
 import retrofit2.Call;
@@ -120,11 +122,23 @@ public interface ApplicationOktaService {
 	@PUT("/api/v1/apps/{appId}")
 	public Call<ApplicationResponse> updatePluginSWAToAdminSetsUsernameAndPassword(@Path("appId") String appId,
 			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
-	
+
 	@POST("/api/v1/apps/{appId}/lifecycle/deactivate")
 	public Call<Object> deactivateApp(@Path("appId") String appId);
-	
+
 	@POST("/api/v1/apps/{appId}/lifecycle/activate")
 	public Call<Object> activateApp(@Path("appId") String appId);
 
+	@GET("/api/v1/apps/{appId}/grants")
+	public Call<List<ScopeConsentGrant>> listScopeConsentGrants(@Path("appId") String appId);
+
+	@GET("/api/v1/apps/{appId}/grants/{grantId}")
+	public Call<ScopeConsentGrant> getScopeConsentGrant(@Path("appId") String appId, @Path("grantId") String grantId);
+
+	@POST("/api/v1/apps/{appId}/grants")
+	public Call<ScopeConsentGrant> addScopeConsentGrant(@Path("appId") String appId,
+			@Body ScopeConsentGrantRequest scopeContentGrantRequest);
+	
+	@DELETE("/api/v1/apps/{appId}/grants/{grantId}")
+	public Call<Void> revokeScopeConsentGrant(@Path("appId") String appId, @Path("grantId") String grantId);
 }

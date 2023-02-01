@@ -19,6 +19,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
 
 public interface ApplicationService {
 
@@ -69,17 +71,25 @@ public interface ApplicationService {
 	public ApplicationResponse updatePluginSWAToUserEditPassword(String appId,
 			UpdatePluginAppCredentialsRequest request);
 
-	public ApplicationResponse updatePluginSWAToOktaPassword(String appId,
-			UpdatePluginAppCredentialsRequest request);
-	
+	public ApplicationResponse updatePluginSWAToOktaPassword(String appId, UpdatePluginAppCredentialsRequest request);
+
 	public ApplicationResponse updatePluginSWAToUserEditUsernameAndPassword(String appId,
 			UpdatePluginAppCredentialsRequest request);
-	
+
 	public ApplicationResponse updatePluginSWAToAdminSetsUsernameAndPassword(String appId,
 			UpdatePluginAppCredentialsRequest request);
-	
+
 	public String deactivateApp(String appId);
-	
+
 	public String activateApp(String appId);
+
+	public List<ScopeConsentGrant> listScopeConsentGrants(String appId);
+	
+	public ScopeConsentGrant getScopeConsentGrant(String appId, String grantId);
+	
+	public ScopeConsentGrant addScopeConsentGrant(String appId, ScopeConsentGrantRequest request);
+	
+	public String revokeScopeConsentGrant(String appId, String grantId);
+
 
 }

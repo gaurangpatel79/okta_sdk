@@ -20,6 +20,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
+import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
@@ -483,6 +485,70 @@ public class ApplicationServiceImpl implements ApplicationService {
 				return null;
 			} else {
 				return "App Activated Successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ScopeConsentGrant> listScopeConsentGrants(String appId) {
+		try {
+			Call<List<ScopeConsentGrant>> call = oktaService.listScopeConsentGrants(appId);
+			Response<List<ScopeConsentGrant>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ScopeConsentGrant getScopeConsentGrant(String appId, String grantId) {
+		try {
+			Call<ScopeConsentGrant> call = oktaService.getScopeConsentGrant(appId, grantId);
+			Response<ScopeConsentGrant> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ScopeConsentGrant addScopeConsentGrant(String appId, ScopeConsentGrantRequest request) {
+		try {
+			Call<ScopeConsentGrant> call = oktaService.addScopeConsentGrant(appId, request);
+			Response<ScopeConsentGrant> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String revokeScopeConsentGrant(String appId, String grantId) {
+		try {
+			Call<Void> call = oktaService.revokeScopeConsentGrant(appId, grantId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Scope Consent Grant Successfully revoked";
 			}
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());
