@@ -22,10 +22,10 @@ public class IdpSsoDescriptor {
 	@Element(name = "KeyDescriptor")
 	private KeyDescriptor keyDescriptor;
 
-	//@ElementList(name = "NameIDFormat", inline = true, required = false)
+	@ElementList(entry="NameIDFormat", name = "NameIDFormat", inline = true, required = false)
 	private List<String> nameIdFormatList;
 
-	@ElementList(name = "SingleSignOnService", inline = true)
+	@ElementList(entry="SingleSignOnService", name = "SingleSignOnService", inline = true, required = false)
 	private List<SingleSignOnService> singleSignOnServiceList;
 
 }

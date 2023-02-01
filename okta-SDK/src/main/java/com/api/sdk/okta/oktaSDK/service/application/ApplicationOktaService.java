@@ -17,6 +17,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
+import com.api.sdk.okta.oktaSDK.service.JsonAndXmlConverters;
+import com.api.sdk.okta.oktaSDK.service.Xml;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -62,6 +64,7 @@ public interface ApplicationOktaService {
 	public Call<CertificateResponse> generateCertificate(@Path("appId") String appId,
 			@Query("validityYears") int validityYears);
 	
+	@Xml
 	@GET("/api/v1/apps/{appId}/sso/saml/metadata")
 	public Call<SamlMetadata> previewSamlMetadata(@Path("appId") String appId,
 			@Query("kid") String keyId);
