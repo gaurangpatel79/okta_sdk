@@ -17,7 +17,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
-import com.api.sdk.okta.oktaSDK.service.JsonAndXmlConverters;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
+import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 import com.api.sdk.okta.oktaSDK.service.Xml;
 
 import retrofit2.Call;
@@ -26,6 +27,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -64,15 +66,18 @@ public interface ApplicationOktaService {
 	@POST("/api/v1/apps/{appId}/credentials/keys/generate")
 	public Call<CertificateResponse> generateCertificate(@Path("appId") String appId,
 			@Query("validityYears") int validityYears);
-	
+
 	@Xml
 	@GET("/api/v1/apps/{appId}/sso/saml/metadata")
-	public Call<SamlMetadata> previewSamlMetadata(@Path("appId") String appId,
-			@Query("kid") String keyId);
+	public Call<SamlMetadata> previewSamlMetadata(@Path("appId") String appId, @Query("kid") String keyId);
 
 	@POST("/api/v1/apps/{appId}/credentials/keys/{keyId}/clone")
 	public Call<CertificateResponse> shareCloneCertificate(@Path("appId") String appId, @Path("keyId") String keyId,
 			@Query("targetAid") String targetAid);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updateApplicationCertificate(@Path("appId") String appId,
+			@Body UpdateApplicationCertificate updateAppCertificateRequest);
 
 	@GET("/api/v1/apps/{appId}/credentials/keys/{keyId}")
 	public Call<CertificateResponse> getCertificate(@Path("appId") String appId, @Path("keyId") String keyId);
@@ -80,10 +85,10 @@ public interface ApplicationOktaService {
 	@GET("/api/v1/apps/{appId}/credentials/keys")
 	public Call<List<CertificateResponse>> listCertificates(@Path("appId") String appId);
 
-	@Headers({"Accept: application/pkcs10"})
+	@Headers({ "Accept: application/pkcs10" })
 	@POST("api/v1/apps/{appId}/credentials/csrs")
 	public Call<String> generateCsrInPkcs10(@Path("appId") String appId, @Body CsrRequest csrRequest);
-	
+
 	@POST("api/v1/apps/{appId}/credentials/csrs")
 	public Call<CsrResponse> generateCsrInJson(@Path("appId") String appId, @Body CsrRequest csrRequest);
 
@@ -92,8 +97,34 @@ public interface ApplicationOktaService {
 
 	@GET("api/v1/apps/{appId}/credentials/csrs/{csrId}")
 	public Call<CsrResponse> getCsr(@Path("appId") String appId, @Path("csrId") String csrId);
-	
+
 	@DELETE("api/v1/apps/{appId}/credentials/csrs/{csrId}")
 	public Call<Void> revokeCsr(@Path("appId") String appId, @Path("csrId") String csrId);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updatePluginSWAToSharedCreds(@Path("appId") String appId,
+			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updatePluginSWAToUserEditPassword(@Path("appId") String appId,
+			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updatePluginSWAToOktaPassword(@Path("appId") String appId,
+			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updatePluginSWAToUserEditUsernameAndPassword(@Path("appId") String appId,
+			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
+
+	@PUT("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> updatePluginSWAToAdminSetsUsernameAndPassword(@Path("appId") String appId,
+			@Body UpdatePluginAppCredentialsRequest updateAppRequest);
+	
+	@POST("/api/v1/apps/{appId}/lifecycle/deactivate")
+	public Call<Object> deactivateApp(@Path("appId") String appId);
+	
+	@POST("/api/v1/apps/{appId}/lifecycle/activate")
+	public Call<Object> activateApp(@Path("appId") String appId);
 
 }

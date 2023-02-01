@@ -17,6 +17,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
+import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 
 public interface ApplicationService {
 
@@ -41,15 +43,17 @@ public interface ApplicationService {
 	public ApplicationResponse addOktaOrg2OrgApp(OktaOrg2OrgAppRequest request);
 
 	public CertificateResponse generateCertificate(String appId, int validityYears);
-	
+
 	public SamlMetadata previewSamlMetadata(String appId, String keyId);
 
 	public CertificateResponse shareCloneCertificate(String appId, String keyId, String targetAid);
 
+	public ApplicationResponse updateApplicationCertificate(String appId, UpdateApplicationCertificate request);
+
 	public CertificateResponse getCertificate(String appId, String keyId);
 
 	public List<CertificateResponse> listCertificates(String appId);
-	
+
 	public String generateCsrInPkcs10(String appId, CsrRequest request);
 
 	public CsrResponse generateCsrInJson(String appId, CsrRequest request);
@@ -59,5 +63,23 @@ public interface ApplicationService {
 	public CsrResponse getCsr(String appId, String csrId);
 
 	public String revokeCsr(String appId, String csrId);
+
+	public ApplicationResponse updatePluginSWAToSharedCreds(String appId, UpdatePluginAppCredentialsRequest request);
+
+	public ApplicationResponse updatePluginSWAToUserEditPassword(String appId,
+			UpdatePluginAppCredentialsRequest request);
+
+	public ApplicationResponse updatePluginSWAToOktaPassword(String appId,
+			UpdatePluginAppCredentialsRequest request);
+	
+	public ApplicationResponse updatePluginSWAToUserEditUsernameAndPassword(String appId,
+			UpdatePluginAppCredentialsRequest request);
+	
+	public ApplicationResponse updatePluginSWAToAdminSetsUsernameAndPassword(String appId,
+			UpdatePluginAppCredentialsRequest request);
+	
+	public String deactivateApp(String appId);
+	
+	public String activateApp(String appId);
 
 }

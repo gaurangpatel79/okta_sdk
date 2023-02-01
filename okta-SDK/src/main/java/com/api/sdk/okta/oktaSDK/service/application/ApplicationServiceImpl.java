@@ -18,6 +18,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
+import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
@@ -80,7 +82,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());
 		}
-	
+
 	}
 
 	@Override
@@ -229,7 +231,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public CertificateResponse getCertificate(String appId, String keyId) {
-		
+
 		try {
 			Call<CertificateResponse> call = oktaService.getCertificate(appId, keyId);
 			Response<CertificateResponse> response = call.execute();
@@ -350,6 +352,137 @@ public class ApplicationServiceImpl implements ApplicationService {
 				return null;
 			} else {
 				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updateApplicationCertificate(String appId, UpdateApplicationCertificate request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updateApplicationCertificate(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updatePluginSWAToSharedCreds(String appId, UpdatePluginAppCredentialsRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updatePluginSWAToSharedCreds(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updatePluginSWAToUserEditPassword(String appId,
+			UpdatePluginAppCredentialsRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updatePluginSWAToUserEditPassword(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updatePluginSWAToOktaPassword(String appId, UpdatePluginAppCredentialsRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updatePluginSWAToOktaPassword(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updatePluginSWAToUserEditUsernameAndPassword(String appId,
+			UpdatePluginAppCredentialsRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updatePluginSWAToUserEditUsernameAndPassword(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse updatePluginSWAToAdminSetsUsernameAndPassword(String appId,
+			UpdatePluginAppCredentialsRequest request) {
+		try {
+			Call<ApplicationResponse> call = oktaService.updatePluginSWAToAdminSetsUsernameAndPassword(appId, request);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String deactivateApp(String appId) {
+		try {
+			Call<Object> call = oktaService.deactivateApp(appId);
+			Response<Object> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "App Deactivated Successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String activateApp(String appId) {
+		try {
+			Call<Object> call = oktaService.activateApp(appId);
+			Response<Object> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "App Activated Successfully";
 			}
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());

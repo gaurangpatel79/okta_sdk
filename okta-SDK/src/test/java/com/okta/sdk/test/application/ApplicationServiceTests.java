@@ -25,6 +25,8 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.SamlMetadata;
+import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCertificate;
+import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
 import com.api.sdk.okta.oktaSDK.util.ObjectMapperHelper;
@@ -163,15 +165,15 @@ public class ApplicationServiceTests {
 		assertNotNull(certResponse.getKid());
 		System.out.println("Certificate Response: " + certResponse);
 	}
-	
+
 	@Test
 	public void testListCertificates() {
 		List<CertificateResponse> certResponse = applicationService.listCertificates("0oap7h19agEJqnZFB357");
 		assertNotNull(certResponse);
-		assertTrue(certResponse.size()>0);
+		assertTrue(certResponse.size() > 0);
 		System.out.println("Certificate Response: " + certResponse);
 	}
-	
+
 	@Test
 	public void testGenerateCsrInJson() {
 		CsrRequest request = createRequest("csrRequest.json", CsrRequest.class);
@@ -180,43 +182,120 @@ public class ApplicationServiceTests {
 		assertNotNull(csrResponse.getId());
 		System.out.println("Csr Response: " + csrResponse);
 	}
-	
+
 	@Test
 	public void testListCsrs() {
 		List<CsrResponse> csrResponse = applicationService.listCsrs("0oap7h19agEJqnZFB357");
 		assertNotNull(csrResponse);
-		assertTrue(csrResponse.size()>0);
+		assertTrue(csrResponse.size() > 0);
 		System.out.println("Csr Response: " + csrResponse);
 	}
-	
+
 	@Test
 	public void testGetCsr() {
-		CsrResponse csrResponse = applicationService.getCsr("0oap7h19agEJqnZFB357", "4ezSQaTleUN5LT3pPn-adC2weZlks1ztALHWyf4bAsA");
+		CsrResponse csrResponse = applicationService.getCsr("0oap7h19agEJqnZFB357",
+				"4ezSQaTleUN5LT3pPn-adC2weZlks1ztALHWyf4bAsA");
 		assertNotNull(csrResponse);
 		assertNotNull(csrResponse.getId());
 		System.out.println("Csr Response: " + csrResponse);
 	}
-	
+
 	@Test
 	public void testRevokeCsr() {
-		String csrResponse = applicationService.revokeCsr("0oap7h19agEJqnZFB357", "b4et_JSrWupfQaEH53kqJX-hkylrM_P2NhfQXt2ZuJU");
+		String csrResponse = applicationService.revokeCsr("0oap7h19agEJqnZFB357",
+				"b4et_JSrWupfQaEH53kqJX-hkylrM_P2NhfQXt2ZuJU");
 		assertNotNull(csrResponse);
 		System.out.println("Csr Response: " + csrResponse);
 	}
-	
+
 	@Test
 	public void testPreviewSamlMetadata() {
-		SamlMetadata samlMetadata = applicationService.previewSamlMetadata("0oap7h19agEJqnZFB357", "t7Sp8j0ITYT_so_3TNkAMM9t-NSB1h-eQoC8qfuY_7k");
+		SamlMetadata samlMetadata = applicationService.previewSamlMetadata("0oap7h19agEJqnZFB357",
+				"t7Sp8j0ITYT_so_3TNkAMM9t-NSB1h-eQoC8qfuY_7k");
 		assertNotNull(samlMetadata);
 		System.out.println("Saml Metadata: " + samlMetadata);
 	}
-	
+
 	@Test
 	public void testGenerateCsrInPkcs10() {
 		CsrRequest request = createRequest("csrRequest.json", CsrRequest.class);
 		String csrResponse = applicationService.generateCsrInPkcs10("0oap7h19agEJqnZFB357", request);
 		assertNotNull(csrResponse);
 		System.out.println("Csr Response: " + csrResponse);
+	}
+
+	@Test
+	public void testUpdateApplicationCertificate() {
+		UpdateApplicationCertificate request = createRequest("updateAppRequest.json",
+				UpdateApplicationCertificate.class);
+		ApplicationResponse appResponse = applicationService.updateApplicationCertificate("0oap7h19agEJqnZFB357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+
+	@Test
+	public void testUpdatePluginSWAToSharedCreds() {
+		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToSharedCreds.json",
+				UpdatePluginAppCredentialsRequest.class);
+		ApplicationResponse appResponse = applicationService.updatePluginSWAToSharedCreds("0oapa27vaekofYvUq357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+
+	@Test
+	public void testUpdatePluginSWAToUserEditPassword() {
+		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToUserEditPassword.json",
+				UpdatePluginAppCredentialsRequest.class);
+		ApplicationResponse appResponse = applicationService.updatePluginSWAToUserEditPassword("0oapa27vaekofYvUq357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+
+	@Test
+	public void testUpdatePluginSWAToOktaPassword() {
+		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToOktaPassword.json",
+				UpdatePluginAppCredentialsRequest.class);
+		ApplicationResponse appResponse = applicationService.updatePluginSWAToOktaPassword("0oapa27vaekofYvUq357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testUpdatePluginSWAToUserEditUsernameAndPassword() {
+		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToUserEditUserNameAndPassword.json",
+				UpdatePluginAppCredentialsRequest.class);
+		ApplicationResponse appResponse = applicationService.updatePluginSWAToUserEditUsernameAndPassword("0oapa27vaekofYvUq357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testUpdatePluginSWAToAdminSetsUsernameAndPassword() {
+		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToAdminSetsUserNameAndPassword.json",
+				UpdatePluginAppCredentialsRequest.class);
+		ApplicationResponse appResponse = applicationService.updatePluginSWAToAdminSetsUsernameAndPassword("0oapa27vaekofYvUq357",
+				request);
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testDeactivateApp() {
+		String appResponse = applicationService.deactivateApp("0oap7h19agEJqnZFB357");
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
+	}
+	
+	@Test
+	public void testActivateApp() {
+		String appResponse = applicationService.activateApp("0oap7h19agEJqnZFB357");
+		assertNotNull(appResponse);
+		System.out.println("App Response: " + appResponse);
 	}
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {

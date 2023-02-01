@@ -1,0 +1,10 @@
+{
+  "name": "cornerstone",
+  "label": "created via API",
+  "signOnMode": "SAML_2_0",
+  "credentials": {
+    "signing": {
+      "kid": "t7Sp8j0ITYT_so_3TNkAMM9t-NSB1h-eQoC8qfuY_7k"
+    }
+  }
+}
