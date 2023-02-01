@@ -210,6 +210,14 @@ public class ApplicationServiceTests {
 		assertNotNull(samlMetadata);
 		System.out.println("Saml Metadata: " + samlMetadata);
 	}
+	
+	@Test
+	public void testGenerateCsrInPkcs10() {
+		CsrRequest request = createRequest("csrRequest.json", CsrRequest.class);
+		String csrResponse = applicationService.generateCsrInPkcs10("0oap7h19agEJqnZFB357", request);
+		assertNotNull(csrResponse);
+		System.out.println("Csr Response: " + csrResponse);
+	}
 
 	private <T> T createRequest(String fileName, Class<T> valueType) {
 		try {

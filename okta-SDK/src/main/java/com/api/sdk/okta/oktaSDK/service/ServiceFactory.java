@@ -9,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 @SuppressWarnings("deprecation")
@@ -20,6 +21,7 @@ public class ServiceFactory {
 	private static final String API_KEY = System.getProperty("apiKey");
 
 	private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL)
+			.addConverterFactory(ScalarsConverterFactory.create())
 			.addConverterFactory(new JsonAndXmlConverters.QualifiedTypeConverterFactory(
                     JacksonConverterFactory.create(), SimpleXmlConverterFactory.create()));
 			

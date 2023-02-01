@@ -340,4 +340,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 		}
 	}
 
+	@Override
+	public String generateCsrInPkcs10(String appId, CsrRequest request) {
+		try {
+			Call<String> call = oktaService.generateCsrInPkcs10(appId, request);
+			Response<String> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
 }

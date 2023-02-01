@@ -24,6 +24,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -79,6 +80,10 @@ public interface ApplicationOktaService {
 	@GET("/api/v1/apps/{appId}/credentials/keys")
 	public Call<List<CertificateResponse>> listCertificates(@Path("appId") String appId);
 
+	@Headers({"Accept: application/pkcs10"})
+	@POST("api/v1/apps/{appId}/credentials/csrs")
+	public Call<String> generateCsrInPkcs10(@Path("appId") String appId, @Body CsrRequest csrRequest);
+	
 	@POST("api/v1/apps/{appId}/credentials/csrs")
 	public Call<CsrResponse> generateCsrInJson(@Path("appId") String appId, @Body CsrRequest csrRequest);
 

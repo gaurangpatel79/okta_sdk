@@ -49,6 +49,8 @@ public interface ApplicationService {
 	public CertificateResponse getCertificate(String appId, String keyId);
 
 	public List<CertificateResponse> listCertificates(String appId);
+	
+	public String generateCsrInPkcs10(String appId, CsrRequest request);
 
 	public CsrResponse generateCsrInJson(String appId, CsrRequest request);
 
