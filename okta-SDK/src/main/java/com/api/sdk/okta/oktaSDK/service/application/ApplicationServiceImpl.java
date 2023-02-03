@@ -1,9 +1,13 @@
 package com.api.sdk.okta.oktaSDK.service.application;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.api.sdk.okta.oktaSDK.dto.application.AppGroup;
+import com.api.sdk.okta.oktaSDK.dto.application.AppUser;
 import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.AssignUserToAppForSsoRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.BookmarkAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
@@ -13,6 +17,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.OktaOrg2OrgAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.UpdateAppCredentialsForAssignedUserRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
@@ -22,10 +27,15 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCe
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
 import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.provisioning.ProvisioningRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.provisioning.ProvisioningResponse;
 import com.api.sdk.okta.oktaSDK.exception.CustomValidationException;
 import com.api.sdk.okta.oktaSDK.service.ServiceFactory;
 import com.api.sdk.okta.oktaSDK.util.ResponseParserUtil;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -549,6 +559,297 @@ public class ApplicationServiceImpl implements ApplicationService {
 				return null;
 			} else {
 				return "Scope Consent Grant Successfully revoked";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ProvisioningResponse getDefaultProvisioningConnection(String appId) {
+		try {
+			Call<ProvisioningResponse> call = oktaService.getDefaultProvisioningConnection(appId);
+			Response<ProvisioningResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ProvisioningResponse createDefaultProvisioningConnection(String appId, ProvisioningRequest request) {
+		try {
+			Call<ProvisioningResponse> call = oktaService.createDefaultProvisioningConnection(appId, request);
+			Response<ProvisioningResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String activateDefaultProvisioningConnection(String appId) {
+		try {
+			Call<Void> call = oktaService.activateDefaultProvisioningConnection(appId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Default Provisioning Connection activated successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String deactivateDefaultProvisioningConnection(String appId) {
+		try {
+			Call<Void> call = oktaService.deactivateDefaultProvisioningConnection(appId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Default Provisioning Connection deactivated successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ApplicationResponse> listApps() {
+		try {
+			Call<List<ApplicationResponse>> call = oktaService.listApps();
+			Response<List<ApplicationResponse>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ApplicationResponse> filterApps(String filter) {
+		try {
+			Call<List<ApplicationResponse>> call = oktaService.filterApps(filter);
+			Response<List<ApplicationResponse>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse getApp(String appId) {
+		try {
+			Call<ApplicationResponse> call = oktaService.getApp(appId);
+			Response<ApplicationResponse> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<AppUser> listUsersAssignedToApp(String appId) {
+		try {
+			Call<List<AppUser>> call = oktaService.listUsersAssignedToApp(appId);
+			Response<List<AppUser>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ApplicationResponse> filterAndExpandApps(String filter, String expand) {
+		try {
+			Call<List<ApplicationResponse>> call = oktaService.filterAndExpandApps(filter, expand);
+			Response<List<ApplicationResponse>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public AppUser assignUserToAppForSso(String appId, AssignUserToAppForSsoRequest assignUserRequest) {
+		try {
+			Call<AppUser> call = oktaService.assignUserToAppForSso(appId, assignUserRequest);
+			Response<AppUser> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public AppUser getAssignedUserForApp(String appId, String userId) {
+		try {
+			Call<AppUser> call = oktaService.getAssignedUserForApp(appId, userId);
+			Response<AppUser> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public AppUser updateAppCredentialsForAssignedUser(String appId, String userId,
+			UpdateAppCredentialsForAssignedUserRequest request) {
+		try {
+			Call<AppUser> call = oktaService.updateAppCredentialsForAssignedUser(appId, userId, request);
+			Response<AppUser> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String deleteUserFromApp(String appId, String userId) {
+		try {
+			Call<Void> call = oktaService.deleteUserFromApp(appId, userId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "User Removed from app successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public AppGroup assignGroupToApp(String appId, String groupId) {
+		try {
+			Call<AppGroup> call = oktaService.assignGroupToApp(appId, groupId);
+			Response<AppGroup> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<AppGroup> listAssignedGroups(String appId) {
+		try {
+			Call<List<AppGroup>> call = oktaService.listAssignedGroups(appId);
+			Response<List<AppGroup>> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return response.body();
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String removeGroupFromApp(String appId, String groupId) {
+		try {
+			Call<Void> call = oktaService.removeGroupFromApp(appId, groupId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Group Removed from app successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String deleteApp(String appId) {
+		try {
+			Call<Void> call = oktaService.deleteApp(appId);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "App Removed successfully";
+			}
+		} catch (IOException e) {
+			throw new CustomValidationException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String uploadLogo(String appId, File file) {
+		try {
+			RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+			MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+			Call<Void> call = oktaService.uploadLogo(appId, body);
+			Response<Void> response = call.execute();
+			if (!response.isSuccessful()) {
+				ResponseParserUtil.parseErrorResponse(response);
+				return null;
+			} else {
+				return "Logo uploaded successfully";
 			}
 		} catch (IOException e) {
 			throw new CustomValidationException(e.getMessage());

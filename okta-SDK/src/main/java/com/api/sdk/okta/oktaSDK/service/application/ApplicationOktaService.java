@@ -2,7 +2,10 @@ package com.api.sdk.okta.oktaSDK.service.application;
 
 import java.util.List;
 
+import com.api.sdk.okta.oktaSDK.dto.application.AppGroup;
+import com.api.sdk.okta.oktaSDK.dto.application.AppUser;
 import com.api.sdk.okta.oktaSDK.dto.application.ApplicationResponse;
+import com.api.sdk.okta.oktaSDK.dto.application.AssignUserToAppForSsoRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.BasicAuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.BookmarkAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.CustomSaml2AppRequest;
@@ -12,6 +15,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.OktaOrg2OrgAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.PluginSwaAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.Saml2AuthAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.SwaAppRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.UpdateAppCredentialsForAssignedUserRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.WsFedAppRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CertificateResponse;
 import com.api.sdk.okta.oktaSDK.dto.application.certificates.CsrRequest;
@@ -21,15 +25,20 @@ import com.api.sdk.okta.oktaSDK.dto.application.certificates.UpdateApplicationCe
 import com.api.sdk.okta.oktaSDK.dto.application.credentials.UpdatePluginAppCredentialsRequest;
 import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrant;
 import com.api.sdk.okta.oktaSDK.dto.application.oauth2.ScopeConsentGrantRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.provisioning.ProvisioningRequest;
+import com.api.sdk.okta.oktaSDK.dto.application.provisioning.ProvisioningResponse;
 import com.api.sdk.okta.oktaSDK.service.Xml;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -138,7 +147,66 @@ public interface ApplicationOktaService {
 	@POST("/api/v1/apps/{appId}/grants")
 	public Call<ScopeConsentGrant> addScopeConsentGrant(@Path("appId") String appId,
 			@Body ScopeConsentGrantRequest scopeContentGrantRequest);
-	
+
 	@DELETE("/api/v1/apps/{appId}/grants/{grantId}")
 	public Call<Void> revokeScopeConsentGrant(@Path("appId") String appId, @Path("grantId") String grantId);
+	
+	@Multipart
+	@POST("/api/v1/apps/{appId}/logo")
+	public Call<Void> uploadLogo(@Path("appId") String appId, @Part MultipartBody.Part file);
+
+	@GET("/api/v1/apps/{appId}/connections/default")
+	public Call<ProvisioningResponse> getDefaultProvisioningConnection(@Path("appId") String appId);
+
+	@POST("/api/v1/apps/{appId}/connections/default?activate=true")
+	public Call<ProvisioningResponse> createDefaultProvisioningConnection(@Path("appId") String appId,
+			@Body ProvisioningRequest provisioningRequest);
+
+	@POST("/api/v1/apps/{appId}/connections/default/lifecycle/activate")
+	public Call<Void> activateDefaultProvisioningConnection(@Path("appId") String appId);
+
+	@POST("/api/v1/apps/{appId}/connections/default/lifecycle/deactivate")
+	public Call<Void> deactivateDefaultProvisioningConnection(@Path("appId") String appId);
+
+	@GET("/api/v1/apps")
+	public Call<List<ApplicationResponse>> listApps();
+
+	@GET("/api/v1/apps")
+	public Call<List<ApplicationResponse>> filterApps(@Query(value = "filter", encoded = true) String filter);
+
+	@GET("/api/v1/apps/{appId}")
+	public Call<ApplicationResponse> getApp(@Path("appId") String appId);
+
+	@GET("/api/v1/apps/{appId}/users")
+	public Call<List<AppUser>> listUsersAssignedToApp(@Path("appId") String appId);
+
+	@GET("/api/v1/apps")
+	public Call<List<ApplicationResponse>> filterAndExpandApps(@Query(value = "filter", encoded = true) String filter,
+			@Query(value = "expand", encoded = true) String expand);
+
+	@POST("/api/v1/apps/{appId}/users")
+	public Call<AppUser> assignUserToAppForSso(@Path("appId") String appId,
+			@Body AssignUserToAppForSsoRequest assignUserRequest);
+
+	@GET("/api/v1/apps/{appId}/users/{userId}")
+	public Call<AppUser> getAssignedUserForApp(@Path("appId") String appId, @Path("userId") String userId);
+
+	@POST("/api/v1/apps/{appId}/users/{userId}")
+	public Call<AppUser> updateAppCredentialsForAssignedUser(@Path("appId") String appId, @Path("userId") String userId,
+			@Body UpdateAppCredentialsForAssignedUserRequest updateAppRequest);
+	
+	@DELETE("/api/v1/apps/{appId}/users/{userId}")
+	public Call<Void> deleteUserFromApp(@Path("appId") String appId, @Path("userId") String userId);
+	
+	@PUT("/api/v1/apps/{appId}/groups/{groupId}")
+	public Call<AppGroup> assignGroupToApp(@Path("appId") String appId, @Path("groupId") String groupId);
+	
+	@GET("/api/v1/apps/{appId}/groups")
+	public Call<List<AppGroup>> listAssignedGroups(@Path("appId") String appId);
+	
+	@DELETE("/api/v1/apps/{appId}/groups/{groupId}")
+	public Call<Void> removeGroupFromApp(@Path("appId") String appId, @Path("groupId") String groupId);
+	
+	@DELETE("/api/v1/apps/{appId}")
+	public Call<Void> deleteApp(@Path("appId") String appId);
 }
