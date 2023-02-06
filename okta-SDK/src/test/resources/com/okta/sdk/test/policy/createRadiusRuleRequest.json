@@ -1,0 +1,26 @@
+{
+    "type": "SIGN_ON",
+    "status": "ACTIVE",
+    "name": "Challenge VPN Users4",
+    "conditions": {
+      "network": {
+        "connection": "ANYWHERE"
+      },
+      "authContext": {
+        "authType": "RADIUS"
+      }
+    },
+    "actions": {
+      "signon": {
+        "access": "ALLOW",
+        "requireFactor": true,
+        "factorPromptMode": "ALWAYS",
+        "rememberDeviceByDefault": false,
+        "session": {
+          "usePersistentCookie": false,
+          "maxSessionIdleMinutes": 720,
+          "maxSessionLifetimeMinutes": 0
+        }
+      }
+    }
+}

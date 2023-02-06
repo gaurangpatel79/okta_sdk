@@ -4,8 +4,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +40,7 @@ import com.api.sdk.okta.oktaSDK.dto.application.provisioning.ProvisioningRespons
 import com.api.sdk.okta.oktaSDK.factory.ApplicationServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.application.ApplicationService;
 import com.api.sdk.okta.oktaSDK.util.ObjectMapperHelper;
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
+import com.okta.sdk.test.Utils;
 
 public class ApplicationServiceTests {
 
@@ -56,7 +53,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddSaml2AuthAppInstance() {
-		Saml2AuthAppRequest request = createRequest("saml2AuthAppRequest.json", Saml2AuthAppRequest.class);
+		Saml2AuthAppRequest request = Utils.createRequest(this.getClass(), "saml2AuthAppRequest.json",
+				Saml2AuthAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addSaml2AuthAppInstance(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -65,7 +63,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddCustomSaml2App() {
-		CustomSaml2AppRequest request = createRequest("customSaml2AppRequest.json", CustomSaml2AppRequest.class);
+		CustomSaml2AppRequest request = Utils.createRequest(this.getClass(), "customSaml2AppRequest.json",
+				CustomSaml2AppRequest.class);
 		ApplicationResponse appResponse = applicationService.addCustomSaml2App(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -74,7 +73,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddCustomSwaApp() {
-		CustomSwaAppRequest request = createRequest("customSwaAppRequest.json", CustomSwaAppRequest.class);
+		CustomSwaAppRequest request = Utils.createRequest(this.getClass(), "customSwaAppRequest.json",
+				CustomSwaAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addCustomSwaApp(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -83,7 +83,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddBasicAuthApp() {
-		BasicAuthAppRequest request = createRequest("basicAuthAppRequest.json", BasicAuthAppRequest.class);
+		BasicAuthAppRequest request = Utils.createRequest(this.getClass(), "basicAuthAppRequest.json",
+				BasicAuthAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addBasicAuthApp(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -92,7 +93,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddPluginSwaApp() {
-		PluginSwaAppRequest request = createRequest("pluginSwaAppRequest.json", PluginSwaAppRequest.class);
+		PluginSwaAppRequest request = Utils.createRequest(this.getClass(), "pluginSwaAppRequest.json",
+				PluginSwaAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addPluginSwaApp(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -101,7 +103,7 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddWsFedApp() {
-		WsFedAppRequest request = createRequest("wsFedAppRequest.json", WsFedAppRequest.class);
+		WsFedAppRequest request = Utils.createRequest(this.getClass(), "wsFedAppRequest.json", WsFedAppRequest.class);
 		String requestStr = ObjectMapperHelper.toJSON(request);
 		System.out.println("Request String: " + requestStr);
 		ApplicationResponse appResponse = applicationService.addWsFedApp(request);
@@ -112,7 +114,7 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddSwaApp() {
-		SwaAppRequest request = createRequest("swaAppRequest.json", SwaAppRequest.class);
+		SwaAppRequest request = Utils.createRequest(this.getClass(), "swaAppRequest.json", SwaAppRequest.class);
 		ApplicationResponse appResponse = applicationService.addSwaApp(request);
 		assertNotNull(appResponse);
 		assertNotNull(appResponse.getId());
@@ -121,7 +123,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddOAuth2ClientApp() {
-		OAuth2ClientAppRequest request = createRequest("oAuth2ClientAppRequest.json", OAuth2ClientAppRequest.class);
+		OAuth2ClientAppRequest request = Utils.createRequest(this.getClass(), "oAuth2ClientAppRequest.json",
+				OAuth2ClientAppRequest.class);
 		String requestStr = ObjectMapperHelper.toJSON(request);
 		System.out.println("Request String: " + requestStr);
 		ApplicationResponse appResponse = applicationService.addOAuth2ClientApp(request);
@@ -132,7 +135,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddBookmarkApp() {
-		BookmarkAppRequest request = createRequest("bookmarkAppRequest.json", BookmarkAppRequest.class);
+		BookmarkAppRequest request = Utils.createRequest(this.getClass(), "bookmarkAppRequest.json",
+				BookmarkAppRequest.class);
 		String requestStr = ObjectMapperHelper.toJSON(request);
 		System.out.println("Request String: " + requestStr);
 		ApplicationResponse appResponse = applicationService.addBookmarkApp(request);
@@ -143,7 +147,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testAddOktaOrg2OrgApp() {
-		OktaOrg2OrgAppRequest request = createRequest("oktaOrg2OrgAppRequest.json", OktaOrg2OrgAppRequest.class);
+		OktaOrg2OrgAppRequest request = Utils.createRequest(this.getClass(), "oktaOrg2OrgAppRequest.json",
+				OktaOrg2OrgAppRequest.class);
 		String requestStr = ObjectMapperHelper.toJSON(request);
 		System.out.println("Request String: " + requestStr);
 		ApplicationResponse appResponse = applicationService.addOktaOrg2OrgApp(request);
@@ -188,7 +193,7 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testGenerateCsrInJson() {
-		CsrRequest request = createRequest("csrRequest.json", CsrRequest.class);
+		CsrRequest request = Utils.createRequest(this.getClass(), "csrRequest.json", CsrRequest.class);
 		CsrResponse csrResponse = applicationService.generateCsrInJson("0oapb8mblihuHCvx3357", request);
 		assertNotNull(csrResponse);
 		assertNotNull(csrResponse.getId());
@@ -230,7 +235,7 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testGenerateCsrInPkcs10() {
-		CsrRequest request = createRequest("csrRequest.json", CsrRequest.class);
+		CsrRequest request = Utils.createRequest(this.getClass(), "csrRequest.json", CsrRequest.class);
 		String csrResponse = applicationService.generateCsrInPkcs10("0oapb8mblihuHCvx3357", request);
 		assertNotNull(csrResponse);
 		System.out.println("Csr Response: " + csrResponse);
@@ -238,7 +243,7 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdateApplicationCertificate() {
-		UpdateApplicationCertificate request = createRequest("updateAppRequest.json",
+		UpdateApplicationCertificate request = Utils.createRequest(this.getClass(), "updateAppRequest.json",
 				UpdateApplicationCertificate.class);
 		ApplicationResponse appResponse = applicationService.updateApplicationCertificate("0oapb8mblihuHCvx3357",
 				request);
@@ -248,8 +253,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdatePluginSWAToSharedCreds() {
-		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToSharedCreds.json",
-				UpdatePluginAppCredentialsRequest.class);
+		UpdatePluginAppCredentialsRequest request = Utils.createRequest(this.getClass(),
+				"updatePluginSwaToSharedCreds.json", UpdatePluginAppCredentialsRequest.class);
 		ApplicationResponse appResponse = applicationService.updatePluginSWAToSharedCreds("0oapa27vaekofYvUq357",
 				request);
 		assertNotNull(appResponse);
@@ -258,8 +263,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdatePluginSWAToUserEditPassword() {
-		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToUserEditPassword.json",
-				UpdatePluginAppCredentialsRequest.class);
+		UpdatePluginAppCredentialsRequest request = Utils.createRequest(this.getClass(),
+				"updatePluginSwaToUserEditPassword.json", UpdatePluginAppCredentialsRequest.class);
 		ApplicationResponse appResponse = applicationService.updatePluginSWAToUserEditPassword("0oapa27vaekofYvUq357",
 				request);
 		assertNotNull(appResponse);
@@ -268,8 +273,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdatePluginSWAToOktaPassword() {
-		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToOktaPassword.json",
-				UpdatePluginAppCredentialsRequest.class);
+		UpdatePluginAppCredentialsRequest request = Utils.createRequest(this.getClass(),
+				"updatePluginSwaToOktaPassword.json", UpdatePluginAppCredentialsRequest.class);
 		ApplicationResponse appResponse = applicationService.updatePluginSWAToOktaPassword("0oapa27vaekofYvUq357",
 				request);
 		assertNotNull(appResponse);
@@ -278,8 +283,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdatePluginSWAToUserEditUsernameAndPassword() {
-		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToUserEditUserNameAndPassword.json",
-				UpdatePluginAppCredentialsRequest.class);
+		UpdatePluginAppCredentialsRequest request = Utils.createRequest(this.getClass(),
+				"updatePluginSwaToUserEditUserNameAndPassword.json", UpdatePluginAppCredentialsRequest.class);
 		ApplicationResponse appResponse = applicationService
 				.updatePluginSWAToUserEditUsernameAndPassword("0oapa27vaekofYvUq357", request);
 		assertNotNull(appResponse);
@@ -288,8 +293,8 @@ public class ApplicationServiceTests {
 
 	@Test
 	public void testUpdatePluginSWAToAdminSetsUsernameAndPassword() {
-		UpdatePluginAppCredentialsRequest request = createRequest("updatePluginSwaToAdminSetsUserNameAndPassword.json",
-				UpdatePluginAppCredentialsRequest.class);
+		UpdatePluginAppCredentialsRequest request = Utils.createRequest(this.getClass(),
+				"updatePluginSwaToAdminSetsUserNameAndPassword.json", UpdatePluginAppCredentialsRequest.class);
 		ApplicationResponse appResponse = applicationService
 				.updatePluginSWAToAdminSetsUsernameAndPassword("0oapa27vaekofYvUq357", request);
 		assertNotNull(appResponse);
@@ -482,14 +487,14 @@ public class ApplicationServiceTests {
 		assertNotNull(userResponse.getId());
 		System.out.println("User Response: " + userResponse);
 	}
-	
+
 	@Test
 	public void testDeleteUserFromApp() {
 		String response = applicationService.deleteUserFromApp("0oapb8mblihuHCvx3357", "00uq6da0868vUgbSh356");
 		assertNotNull(response);
 		System.out.println("User Response: " + response);
 	}
-	
+
 	@Test
 	public void testAssignGroupToApp() {
 		AppGroup response = applicationService.assignGroupToApp("0oapb8mblihuHCvx3357", "00goyaeanx5X6JW97357");
@@ -504,45 +509,26 @@ public class ApplicationServiceTests {
 		assertNotNull(response);
 		System.out.println("User Response: " + response);
 	}
-	
+
 	@Test
 	public void testRemoveGroupFromApp() {
 		String response = applicationService.removeGroupFromApp("0oapb8mblihuHCvx3357", "00goyaeanx5X6JW97357");
 		assertNotNull(response);
 		System.out.println("User Response: " + response);
 	}
-	
+
 	@Test
 	public void testDeleteApp() {
 		String response = applicationService.deleteApp("0oapbgb1x9DkMrpSw357");
 		assertNotNull(response);
 		System.out.println("App Response: " + response);
 	}
-	
+
 	@Test
 	public void testUploadLogo() {
 		String response = applicationService.uploadLogo("0oapb8mblihuHCvx3357", new File("D:\\Images\\fireworks.jpg"));
 		assertNotNull(response);
 		System.out.println("Upload Logo Response: " + response);
 	}
-	
-	private <T> T createRequest(String fileName, Class<T> valueType) {
-		try {
-			String requestStr = loadFile(fileName);
-			T request = ObjectMapperHelper.readValueFromJSON(requestStr, valueType);
-			return request;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
-	public String loadFile(String fileName) {
-		URL url = Resources.getResource(this.getClass(), fileName);
-		try {
-			String data = Resources.toString(url, Charsets.UTF_8);
-			return data;
-		} catch (IOException e) {
-			throw new RuntimeException("Couldn't load a JSON file.", e);
-		}
-	}
 }
