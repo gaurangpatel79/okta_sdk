@@ -11,6 +11,11 @@ import com.api.sdk.okta.oktaSDK.dto.policy.GlobalSessionRuleResponse;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleRequest;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleResponse;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleUpdateRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyResponse;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleResponse;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleUpdate;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -47,4 +52,17 @@ public interface PolicyOkta {
 	@POST("/api/v1/policies/{policyId}/rules")
 	public Call<GlobalSessionRuleResponse> createDenyRule(@Path("policyId") String policyId,
 			@Body GlobalSessionDenyRuleRequest request);
+
+	@GET("/api/v1/policies")
+	public Call<List<PasswordPolicyResponse>> getPasswordPolicies(@Query("type") String type);
+
+	@POST("/api/v1/policies")
+	public Call<PasswordPolicyResponse> createPasswordPolicy(@Body PasswordPolicyRequest request);
+
+	@POST("/api/v1/policies/{policyId}/rules")
+	public Call<PasswordPolicyRuleResponse> createPasswordPolicyRule(@Path("policyId") String policyId,
+			@Body PasswordPolicyRuleRequest request);
+	
+	@PUT("/api/v1/policies/{policyId}/rules/{ruleId}")
+	public Call<PasswordPolicyRuleResponse> updatePasswordPolicyRule(@Path("policyId") String policyId, @Path("ruleId") String ruleId, @Body PasswordPolicyRuleUpdate request);
 }

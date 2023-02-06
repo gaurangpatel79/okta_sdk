@@ -16,6 +16,11 @@ import com.api.sdk.okta.oktaSDK.dto.policy.GlobalSessionRuleResponse;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleRequest;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleResponse;
 import com.api.sdk.okta.oktaSDK.dto.policy.MFAEnrollRuleUpdateRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyResponse;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleRequest;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleResponse;
+import com.api.sdk.okta.oktaSDK.dto.policy.PasswordPolicyRuleUpdate;
 import com.api.sdk.okta.oktaSDK.dto.policy.PolicyResponse;
 import com.api.sdk.okta.oktaSDK.factory.PolicyServiceFactory;
 import com.api.sdk.okta.oktaSDK.service.policy.PolicyService;
@@ -118,5 +123,51 @@ public class PolicyServiceTests {
 		assertNotNull(response);
 		assertNotNull(response.getId());
 		System.out.println("Rule Response: " + response);
+	}
+	
+	@Test
+	public void testGetPasswordPolicies() {
+
+		List<PasswordPolicyResponse> response = policyService.getPasswordPolicies("PASSWORD");
+		assertNotNull(response);
+		assertTrue(response.size() > 0);
+
+		System.out.println("Policy Response: " + response);
+	}
+	
+	@Test
+	public void testCreatePasswordPolicy() {
+
+		PasswordPolicyRequest request = Utils.createRequest(this.getClass(), "createPasswordPolicy.json",
+				PasswordPolicyRequest.class);
+		PasswordPolicyResponse response = policyService.createPasswordPolicy(request);
+		assertNotNull(response);
+		assertNotNull(response.getId());
+
+		System.out.println("Policy Response: " + response);
+	}
+	
+	@Test
+	public void testCreatePasswordPolicyRule() {
+
+		PasswordPolicyRuleRequest request = Utils.createRequest(this.getClass(), "createPasswordPolicyRule.json",
+				PasswordPolicyRuleRequest.class);
+		PasswordPolicyRuleResponse response = policyService.createPasswordPolicyRule("00pperde2bCOQV7GM357", request);
+		assertNotNull(response);
+		assertNotNull(response.getId());
+
+		System.out.println("Policy Response: " + response);
+	}
+	
+	@Test
+	public void testUpdatePasswordPolicyRule() {
+
+		PasswordPolicyRuleUpdate request = Utils.createRequest(this.getClass(), "updatePasswordPolicyRule.json",
+				PasswordPolicyRuleUpdate.class);
+		PasswordPolicyRuleResponse response = policyService.updatePasswordPolicyRule("00ppesqrqbhY6ROpP357", "0prpesovlbgqdlPhB357", request);
+		assertNotNull(response);
+		assertNotNull(response.getId());
+
+		System.out.println("Policy Response: " + response);
 	}
 }
