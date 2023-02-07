@@ -1,0 +1,14 @@
+{
+    "type": "OKTA_SIGN_ON",
+    "name": "Okta Corp Policy 4",
+    "description": "Standard policy for every employee",
+    "conditions": {
+        "people": {
+            "groups": {
+                "include": [
+                    "00goyaeanx5X6JW97357"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "type": "SIGN_ON",
+    "name": "Deny",
+    "conditions": {
+        "network": {
+            "connection": "ANYWHERE"
+        },
+        "authContext": {
+            "authType": "ANY"
+        }
+    },
+    "actions": {
+        "signon": {
+            "access": "DENY",
+            "requireFactor": false
+        }
+    }
+}

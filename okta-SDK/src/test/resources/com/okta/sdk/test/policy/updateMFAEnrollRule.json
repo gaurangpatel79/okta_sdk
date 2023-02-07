@@ -1,0 +1,23 @@
+{
+    "type": "MFA_ENROLL",
+    "id": "0prpcn7oveR6zCYGm357",
+    "status": "ACTIVE",
+    "name": "Updated Challenge Rule",
+    "priority": 1,
+    "system": false,
+    "conditions": {
+        "people": {
+            "users": {
+                "exclude": []
+            }
+        },
+        "network": {
+            "connection": "ANYWHERE"
+        }
+    },
+    "actions": {
+        "enroll": {
+            "self": "CHALLENGE"
+        }
+    }
+}

@@ -27,4 +27,6 @@ public class ApplicationResponse {
 
 	@JsonProperty(value = "_links")
 	private AppLinks links;
+	
+	private AppProfile profile;
 }

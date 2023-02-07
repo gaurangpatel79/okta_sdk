@@ -1,0 +1,11 @@
+{
+  "name": "My Updated Policy",
+  "description": "This is my policy",
+  "conditions": {
+  	"people": {
+      "groups": {
+        "include": ["00goyaeanx5X6JW97357"]
+      }
+    }
+  }
+}

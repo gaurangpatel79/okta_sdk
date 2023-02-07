@@ -1,0 +1,21 @@
+{
+    "type": "MFA_ENROLL",
+    "status": "ACTIVE",
+    "name": "Challenge Rule4",
+    "system": false,
+    "conditions": {
+        "people": {
+            "users": {
+                "exclude": []
+            }
+        },
+        "network": {
+            "connection": "ANYWHERE"
+        }
+    },
+    "actions": {
+        "enroll": {
+            "self": "CHALLENGE"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "bookmark",
+  "label": "Sample Bookmark App",
+  "signOnMode": "BOOKMARK",
+  "settings": {
+    "app": {
+      "requestIntegration": false,
+      "url": "https://example.com/bookmark.html"
+    }
+  }
+}

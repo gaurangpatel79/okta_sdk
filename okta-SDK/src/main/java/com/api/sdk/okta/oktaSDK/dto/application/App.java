@@ -37,5 +37,15 @@ public class App {
 	private String digestAlgorithm;
 	@JsonInclude(Include.NON_NULL)
 	private String signatureAlgorithm;
-
+	private String optionalField1;
+	private String optionalField1Value;
+	private String optionalField2;
+	private String optionalField2Value;
+	private String optionalField3;
+	private String optionalField3Value;
+	@JsonInclude(Include.NON_NULL)
+	private Boolean requestIntegration;
+	private String acsUrl;
+	private String audRestriction;
+	private String baseUrl;
 }
